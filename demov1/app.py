@@ -70,7 +70,7 @@ def notes():
         }
         return redirect('/api/node/%s' % id)
 
-@app.route('/api/nodes/<int:id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/api/node/<int:id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def api_node(id):
     """
     GET: get node resource
@@ -93,7 +93,7 @@ def api_node(id):
                 'content': data['content'],
             }
         }
-        return redirect('/api/node/%s' % new_id)
+        return redirect('/api/nodes/%s' % new_id)
     elif request.method == 'PUT':
         data = request.get_json(force=True)
         node_store[id]['data']['title'] = data['title']

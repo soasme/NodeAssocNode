@@ -2,12 +2,11 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://underscorejs.org/underscore-min.js"></script>
-    <script src="http://backbonejs.org/backbone-min.js"></script>
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-    <link href="http://v3.bootcss.com/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet" />
+    <script src="{{ url_for('static', filename='components/jquery/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='components/underscore/underscore-min.js')}}"> </script>
+    <script src="{{ url_for('static', filename='components/backbone/backbone.js')}}"> </script>
+    <script src="{{ url_for('static', filename='components/handlebars/handlebars.min.js')}}"></script>
+    <link href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
     <style>
       body {
         padding-top: 50px;
@@ -24,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Assoc</a>
+          <a class="navbar-brand" href="#">Demo v1</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -38,12 +37,16 @@
     </nav>
 
     <div class="container">
-
-      <div class="starter-template">
+      <!--<div class="starter-template">
         <h1>Title</h1>
         <p class="lead">Blah Blah Blah</p>
-      </div>
+      </div>-->
 
     </div>
+    <script type="text/x-handlebars-template" id="node-card-template">
+      template content
+    </script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet" />
   </body>
 </html>
