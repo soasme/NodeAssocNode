@@ -1,4 +1,4 @@
-(function($, _, Template){
+(function($, _, Template, md2html){
 
   var app = {
     model: {},
@@ -15,7 +15,11 @@
   }
 
   app.model.Node = Backbone.Model.extend({
-    urlRoot: '/api/nodes'
+    urlRoot: '/api/nodes',
+
+    html: function () {
+      return md2html(this.data.content)
+    }
   })
 
   app.collection.Node = Backbone.Collection.extend({
@@ -31,17 +35,13 @@
     className: "node-card",
     template: app.util.template('node-card-template'),
     render: function () {
+      var json = this.model.toJSON()
+      json.html = this.model.html
       this.$el.html(
-        this.template(
-          this.model.attributes
-        )
+        this.template(json)
       )
       return this
     }
-  })
-
-  app.view.NodeSmallCard = Backbone.View.extend({
-    className: "node-small-card"
   })
 
   app.view.NodePage = Backbone.View.extend({
@@ -68,15 +68,18 @@
     },
 
     discoverView: function() {
+      var nodes = new app.collection.Node()
     },
 
     nodeView: function (id) {
       var node = new app.model.Node({id: id})
-      node.fetch({
-        success: function (model, response, options) {
-          console.log(model)
-        }
-      })
+      node.fetch()
+          .done(function(response){
+            var view = new app.view.NodeCard({model: node})
+            $("#app-endpoint").html(view.render().el)
+          }).fail(function(response) {
+            $("#app-endpoint").html('<p>Network error</p>')
+          })
     }
   })
 
@@ -84,4 +87,4 @@
 
   Backbone.history.start({pushState: false})
 
-})(jQuery, _, Handlebars);
+})(jQuery, _, Handlebars, marked);
