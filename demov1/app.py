@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, redirect, make_response, render_template
+from flask import Flask, request, redirect, make_response, render_template, abort
 from flask.json import jsonify
 import json
 from collections import defaultdict
@@ -78,6 +78,8 @@ def api_node(id):
     PUT: modify node.
     DELETE: delete node, and all relations with it.
     """
+    if id not in node_store:
+        abort(404)
     if request.method == 'GET':
         item = dict(node_store[id])
         item['id'] = id
@@ -114,6 +116,8 @@ def api_node_cascades(id):
     """
     GET nodes related with current node.
     """
+    if id not in node_store:
+        abort(404)
     if request.method == 'GET':
         without = {int(i) for i in request.args.get('without', '').split()}
         ids = [i for i in relation_store[id] if i not in without]
