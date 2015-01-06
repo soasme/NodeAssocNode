@@ -34,22 +34,53 @@
   })
 
   app.view.MainNode = Backbone.View.extend({
-    model: app.model.Node
+    className: "main-node",
+    model: app.model.Node,
+    template: app.util.template('main-node-template'),
+    render: function () {
+
+    }
   })
 
   app.view.NodeCard = Backbone.View.extend({
     className: "node-card",
+    model: app.model.Node,
     template: app.util.template('node-card-template'),
     render: function () {
-      this.$el.html(
-        this.template(this.model.expose())
-      )
+      var data = this.model.expose()
+      var html = this.template(data)
+      this.$el.html(html)
       return this
     }
   })
 
   app.view.NodePage = Backbone.View.extend({
-    className: 'node-page'
+    className: 'node-page',
+    template: app.util.template('node-page-template'),
+    appendNodeCard: function(node) {
+      var view = new app.view.NodeCard({model: node})
+      $(".node-page .cascade-section").append(view.render().el)
+    },
+    renderCascadeSection: function() {
+      var col = new app.collection.Node()
+      var $list = $(".node-page .cascade-section")
+      var appender = this.appendNodeCard
+      col.fetch({reset: true}).done(function(resp) {
+        col.each(appender)
+      })
+    },
+    renderNodeSection: function() {
+
+    },
+    renderSkelenton: function() {
+      this.$el.html(this.template())
+    },
+    render: function() {
+      this.renderSkelenton()
+      this.renderCascadeSection()
+      this.renderNodeSection()
+      return this
+    }
   })
 
   var MainApp = Backbone.Router.extend({
@@ -76,14 +107,8 @@
     },
 
     nodeView: function (id) {
-      var node = new app.model.Node({id: id})
-      node.fetch()
-          .done(function(response){
-            var view = new app.view.NodeCard({model: node})
-            $("#app-endpoint").html(view.render().el)
-          }).fail(function(response) {
-            $("#app-endpoint").html('<p>Network error</p>')
-          })
+      var nodePageView = new app.view.NodePage()
+      $("#app-endpoint").html(nodePageView.render().el)
     }
   })
 

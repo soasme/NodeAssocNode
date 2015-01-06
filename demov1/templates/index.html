@@ -29,7 +29,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
+            <li class="active"><a href="#/i/node/1000001">Home</a></li>
             <li><a href="#/soasme">Profile</a></li>
             <li><a href="#/i/notifications">Notification</a></li>
             <li><a href="#/i/discover">Discover</a></li>
@@ -47,7 +47,23 @@
 
     </div>
     {% raw %}
-    <script type="text/x-handlebars-template" id="">
+    <script type="text/x-handlebars-template" id="main-node-template">
+      <div class="main-node">
+        <h3>{{data.title}}</h3>
+        <div class="node-desc">
+          {{{html}}}
+        </div>
+      </div>
+    </script>
+    <script type="text/x-handlebars-template" id="node-page-template">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 node-section">
+          </div>
+          <div class="col-md-6 cascade-section">
+          </div>
+        </div>
+      </div>
     </script>
     <script type="text/x-handlebars-template" id="node-card-template">
       <div class="node-card">
