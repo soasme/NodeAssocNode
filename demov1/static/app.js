@@ -38,7 +38,10 @@
     model: app.model.Node,
     template: app.util.template('main-node-template'),
     render: function () {
-
+      var data = this.model.expose()
+      var html = this.template(data)
+      this.$el.html(html)
+      return this
     }
   })
 
@@ -72,10 +75,11 @@
     renderNodeSection: function() {
       var model = new app.model.Node({id:this.id})
       model.fetch().done(function(resp) {
-        var view = new app.view.NodeCard({model: model})
+        var view = new app.view.MainNode({model: model})
         var html = view.render().el
-        console.log(html)
         $(".node-page .node-section").html(html)
+      }).fail(function(resp){
+        $(".node-page .node-section").html('<h1>404 Not Found</h1>')
       })
     },
     renderSkelenton: function() {
