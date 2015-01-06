@@ -70,7 +70,13 @@
       })
     },
     renderNodeSection: function() {
-
+      var model = new app.model.Node({id:this.id})
+      model.fetch().done(function(resp) {
+        var view = new app.view.NodeCard({model: model})
+        var html = view.render().el
+        console.log(html)
+        $(".node-page .node-section").html(html)
+      })
     },
     renderSkelenton: function() {
       this.$el.html(this.template())
@@ -107,7 +113,7 @@
     },
 
     nodeView: function (id) {
-      var nodePageView = new app.view.NodePage()
+      var nodePageView = new app.view.NodePage({id: id})
       $("#app-endpoint").html(nodePageView.render().el)
     }
   })
