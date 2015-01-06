@@ -6,6 +6,7 @@
     <script src="{{ url_for('static', filename='components/underscore/underscore-min.js')}}"> </script>
     <script src="{{ url_for('static', filename='components/backbone/backbone.js')}}"> </script>
     <script src="{{ url_for('static', filename='components/handlebars/handlebars.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='components/marked/lib/marked.js')}}"></script>
     <script src="{{ url_for('static', filename='externs/lorem.js')}}"></script>
     <link href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
     <style>
@@ -37,16 +38,24 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container" id="app-endpoint">
+
       <!--<div class="starter-template">
         <h1>Title</h1>
         <p class="lead">Blah Blah Blah</p>
       </div>-->
 
     </div>
+    {% raw %}
     <script type="text/x-handlebars-template" id="node-card-template">
-      template content
+      <div class="node-card">
+        <h3>{{data.title}}</h3>
+        <div class="node-desc">
+          {{data.content}}
+        </div>
+      </div>
     </script>
+    {% endraw %}
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet" />
   </body>
