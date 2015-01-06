@@ -18,7 +18,13 @@
     urlRoot: '/api/nodes',
 
     html: function () {
-      return md2html(this.data.content)
+      return md2html(this.get('data').content)
+    },
+
+    expose: function () {
+      var json = this.toJSON()
+      json.html = this.html()
+      return json
     }
   })
 
@@ -35,10 +41,8 @@
     className: "node-card",
     template: app.util.template('node-card-template'),
     render: function () {
-      var json = this.model.toJSON()
-      json.html = this.model.html
       this.$el.html(
-        this.template(json)
+        this.template(this.model.expose())
       )
       return this
     }
