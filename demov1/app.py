@@ -68,9 +68,9 @@ def notes():
                 'content': data['content']
             }
         }
-        return redirect('/api/node/%s' % id)
+        return redirect('/api/nodes/%s' % id)
 
-@app.route('/api/node/<int:id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/api/nodes/<int:id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def api_node(id):
     """
     GET: get node resource
